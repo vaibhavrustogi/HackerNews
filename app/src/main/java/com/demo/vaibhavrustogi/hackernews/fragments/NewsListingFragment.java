@@ -7,13 +7,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.demo.vaibhavrustogi.hackernews.R;
 
 /**
  * Created by vaibhavrustogi on 14/07/17.
  */
 
-public class NewsListingFragment extends BaseFragment {
+public class NewsListingFragment extends BaseFragment implements Response.Listener, Response.ErrorListener {
 
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
@@ -53,5 +55,15 @@ public class NewsListingFragment extends BaseFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
+    }
+
+    @Override
+    public void onErrorResponse(VolleyError error) {
+
+    }
+
+    @Override
+    public void onResponse(Object response) {
+
     }
 }

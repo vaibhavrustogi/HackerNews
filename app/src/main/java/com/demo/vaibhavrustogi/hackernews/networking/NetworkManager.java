@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.demo.vaibhavrustogi.hackernews.networking.customrequest.GsonRequest;
 
@@ -39,7 +40,14 @@ public class NetworkManager {
         return makeGsonRequest(url, clazz, body, headers, Request.Method.GET, successListener, errorListener, null);
     }
 
-    public Request<?> makeGsonRequest(String url, Class clazz, final Map<String, String> params, final Map<String, String> headers,
+    public Request<?> makeJsonRequestGet(String url, final Map<String, String> headers, Response.Listener successListener, Response.ErrorListener errorListener) {
+        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url, null, successListener,
+                errorListener);
+        mRequestQueue.add(getRequest);
+        return getRequest;
+    }
+
+    public Request<?> makeGsonRequest(String url, Class clazz, Map<String, String> params, Map<String, String> headers,
                                       int method, Response.Listener successListener, Response.ErrorListener errorListener, String tag) {
         if (method == Request.Method.GET) {
             url = generateGetUrl(url, params);
