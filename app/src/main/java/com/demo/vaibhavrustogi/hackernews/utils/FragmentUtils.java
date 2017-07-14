@@ -5,9 +5,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
-import fragments.BaseFragment;
-import fragments.NewsDetailFragment;
-import fragments.NewsListingFragment;
+import com.demo.vaibhavrustogi.hackernews.fragments.BaseFragment;
+import com.demo.vaibhavrustogi.hackernews.fragments.NewsDetailFragment;
+import com.demo.vaibhavrustogi.hackernews.fragments.NewsListingFragment;
 
 /**
  * Created by vaibhavrustogi on 14/07/17.

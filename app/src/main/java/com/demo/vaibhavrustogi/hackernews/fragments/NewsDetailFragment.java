@@ -1,4 +1,4 @@
-package fragments;
+package com.demo.vaibhavrustogi.hackernews.fragments;
 
 /**
  * Created by vaibhavrustogi on 14/07/17.

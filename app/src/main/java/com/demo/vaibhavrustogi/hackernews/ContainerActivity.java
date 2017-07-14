@@ -6,7 +6,7 @@ import android.text.TextUtils;
 
 import com.demo.vaibhavrustogi.hackernews.utils.FragmentUtils;
 
-import fragments.BaseFragment;
+import com.demo.vaibhavrustogi.hackernews.fragments.BaseFragment;
 
 public class ContainerActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package fragments;
+package com.demo.vaibhavrustogi.hackernews.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
