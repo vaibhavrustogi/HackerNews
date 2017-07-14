@@ -10,6 +10,11 @@ import android.widget.ProgressBar;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.demo.vaibhavrustogi.hackernews.R;
+import com.demo.vaibhavrustogi.hackernews.WebServiceConstants;
+import com.demo.vaibhavrustogi.hackernews.adapters.NewsListingAdapter;
+import com.demo.vaibhavrustogi.hackernews.networking.NetworkManager;
+
+import org.json.JSONArray;
 
 /**
  * Created by vaibhavrustogi on 14/07/17.
@@ -19,6 +24,7 @@ public class NewsListingFragment extends BaseFragment implements Response.Listen
 
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
+    private NewsListingAdapter newsListingAdapter;
 
     @Override
     protected int getFragmentLayout() {
@@ -29,6 +35,23 @@ public class NewsListingFragment extends BaseFragment implements Response.Listen
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initializeViews();
+        fetchTopStories();
+    }
+
+    private void fetchTopStories() {
+        progressBar(true);
+        NetworkManager.getsInstance(getActivity()).makeJsonRequestGet(WebServiceConstants.getTopStoriesUrl(), null, this, this);
+    }
+
+    private void setAdapters(JSONArray jsonArray) {
+        if (newsListingAdapter == null) {
+            newsListingAdapter = new NewsListingAdapter(jsonArray);
+            if (recyclerView != null)
+                recyclerView.setAdapter(newsListingAdapter);
+        } else {
+            newsListingAdapter.setNewsIds(jsonArray);
+        }
+        progressBar(false);
     }
 
     private void initializeViews() {
@@ -39,7 +62,6 @@ public class NewsListingFragment extends BaseFragment implements Response.Listen
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         }
         progressBar = (ProgressBar) getView().findViewById(R.id.progress_bar);
-
     }
 
     private void progressBar(boolean show) {
@@ -64,6 +86,8 @@ public class NewsListingFragment extends BaseFragment implements Response.Listen
 
     @Override
     public void onResponse(Object response) {
-
+        if (response != null && response instanceof JSONArray) {
+            setAdapters((JSONArray) response);
+        }
     }
 }
