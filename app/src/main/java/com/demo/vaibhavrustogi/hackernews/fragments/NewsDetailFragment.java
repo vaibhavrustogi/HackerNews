@@ -1,5 +1,7 @@
 package com.demo.vaibhavrustogi.hackernews.fragments;
 
+import com.demo.vaibhavrustogi.hackernews.R;
+
 /**
  * Created by vaibhavrustogi on 14/07/17.
  */
@@ -7,6 +9,6 @@ package com.demo.vaibhavrustogi.hackernews.fragments;
 public class NewsDetailFragment extends BaseFragment {
     @Override
     protected int getFragmentLayout() {
-        return 0;
+        return R.layout.news_detail_layout;
     }
 }

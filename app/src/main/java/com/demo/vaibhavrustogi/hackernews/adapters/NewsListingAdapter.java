@@ -16,7 +16,16 @@ import org.json.JSONArray;
 
 public class NewsListingAdapter extends RecyclerView.Adapter {
 
-    JSONArray itemIds;
+    private JSONArray itemIds;
+    private INewsItemClickListener newsItemClickListener;
+
+    public void setNewsItemClickListener(INewsItemClickListener newsItemClickListener) {
+        this.newsItemClickListener = newsItemClickListener;
+    }
+
+    public interface INewsItemClickListener {
+        void onNewsItemClick(long id);
+    }
 
     @Override
     public int getItemViewType(int position) {
@@ -37,8 +46,17 @@ public class NewsListingAdapter extends RecyclerView.Adapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        NewsItemViewHolder viewHolder = new NewsItemViewHolder(LayoutInflater
+        final NewsItemViewHolder viewHolder = new NewsItemViewHolder(LayoutInflater
                 .from(parent.getContext()).inflate(viewType, parent, false));
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = viewHolder.getAdapterPosition();
+                if (newsItemClickListener != null) {
+                    newsItemClickListener.onNewsItemClick(itemIds.optLong(position));
+                }
+            }
+        });
         return viewHolder;
     }
 

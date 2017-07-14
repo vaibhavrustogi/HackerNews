@@ -9,6 +9,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.demo.vaibhavrustogi.hackernews.networking.customrequest.CustomJsonRequest;
 import com.demo.vaibhavrustogi.hackernews.networking.customrequest.GsonRequest;
 
 import org.json.JSONObject;
@@ -41,7 +42,7 @@ public class NetworkManager {
     }
 
     public Request<?> makeJsonRequestGet(String url, final Map<String, String> headers, Response.Listener successListener, Response.ErrorListener errorListener) {
-        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url, null, successListener,
+        CustomJsonRequest getRequest = new CustomJsonRequest(Request.Method.GET, url, null, successListener,
                 errorListener);
         mRequestQueue.add(getRequest);
         return getRequest;

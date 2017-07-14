@@ -16,6 +16,8 @@ import com.demo.vaibhavrustogi.hackernews.networking.NetworkManager;
 
 import org.json.JSONArray;
 
+import static com.demo.vaibhavrustogi.hackernews.WebServiceConstants.KEY_ITEM_ID;
+
 /**
  * Created by vaibhavrustogi on 14/07/17.
  */
@@ -46,12 +48,27 @@ public class NewsListingFragment extends BaseFragment implements Response.Listen
     private void setAdapters(JSONArray jsonArray) {
         if (newsListingAdapter == null) {
             newsListingAdapter = new NewsListingAdapter(jsonArray);
-            if (recyclerView != null)
-                recyclerView.setAdapter(newsListingAdapter);
+            newsListingAdapter.setNewsItemClickListener(new NewsListingAdapter.INewsItemClickListener() {
+                @Override
+                public void onNewsItemClick(long id) {
+                    openNewsDetailScreen(id);
+                }
+            });
         } else {
             newsListingAdapter.setNewsIds(jsonArray);
         }
+        if (recyclerView != null && recyclerView.getAdapter() == null) {
+            recyclerView.setAdapter(newsListingAdapter);
+        }
         progressBar(false);
+    }
+
+    private void openNewsDetailScreen(long id) {
+        NewsDetailFragment newsDetailFragment = new NewsDetailFragment();
+        Bundle bundle = new Bundle();
+        bundle.putLong(KEY_ITEM_ID, id);
+        newsDetailFragment.setArguments(bundle);
+        addToBackStack(newsDetailFragment);
     }
 
     private void initializeViews() {
